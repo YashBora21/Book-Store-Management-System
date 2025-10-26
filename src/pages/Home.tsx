@@ -65,10 +65,10 @@ export default function Home() {
           <div className="grid md:grid-cols-2 gap-12 items-center">
             <div className="grid grid-cols-2 gap-4">
               <div className="bg-muted aspect-square rounded-lg overflow-hidden">
-                <img src="/images/photo1.jpg" alt="Bookstore" className="w-full h-full object-cover" />
+                <img src="/images/Photo1.jpg" alt="Bookstore" className="w-full h-full object-cover" />
               </div>
               <div className="bg-muted aspect-square rounded-lg mt-8 overflow-hidden">
-                <img src="/images/photo2.jpg" alt="Bookstore" className="w-full h-full object-cover" />
+                <img src="/images/Photo2.jpg" alt="Bookstore" className="w-full h-full object-cover" />
               </div>
             </div>
             <div>
