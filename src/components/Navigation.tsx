@@ -23,12 +23,15 @@ export const Navigation = () => {
               <DropdownMenuTrigger className="text-sm hover:text-muted-foreground transition-colors">
                 Books
               </DropdownMenuTrigger>
-              <DropdownMenuContent className="bg-background">
+              <DropdownMenuContent className="bg-background z-50">
                 <DropdownMenuItem asChild>
                   <Link to="/collection/novels">Novels</Link>
                 </DropdownMenuItem>
                 <DropdownMenuItem asChild>
                   <Link to="/collection/self-help">Self-Help</Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem asChild>
+                  <Link to="/collection/biography">Biography</Link>
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>

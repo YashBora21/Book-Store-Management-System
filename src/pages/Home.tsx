@@ -18,11 +18,11 @@ export default function Home() {
                 Find your next great<br />read at our online<br />book store
               </h1>
               <div className="flex gap-4">
-                <Button className="bg-foreground text-background hover:bg-foreground/90 rounded-full px-8">
-                  Explore
+                <Button className="bg-foreground text-background hover:bg-foreground/90 rounded-full px-8" asChild>
+                  <Link to="/shop">Explore</Link>
                 </Button>
                 <Button variant="outline" className="rounded-full px-8" asChild>
-                  <Link to="/profile">Sign up</Link>
+                  <Link to="/auth">Sign up</Link>
                 </Button>
               </div>
             </div>
@@ -163,11 +163,11 @@ export default function Home() {
               Discover stories that inspire, educate, and entertain. Join our community of readers today.
             </p>
             <div className="flex gap-4">
-              <Button className="bg-foreground text-background rounded-full">
-                Get Started
+              <Button className="bg-foreground text-background rounded-full" asChild>
+                <Link to="/shop">Get Started</Link>
               </Button>
-              <Button variant="outline" className="rounded-full">
-                Sign Up
+              <Button variant="outline" className="rounded-full" asChild>
+                <Link to="/auth">Sign Up</Link>
               </Button>
             </div>
           </div>

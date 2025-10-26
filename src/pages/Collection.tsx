@@ -6,7 +6,11 @@ import { Button } from "@/components/ui/button";
 
 export default function Collection() {
   const { category } = useParams();
-  const displayCategory = category === "self-help" ? "SELF-HELP" : category?.toUpperCase();
+  const displayCategory = category === "self-help" 
+    ? "SELF-HELP" 
+    : category === "biography" 
+    ? "BIOGRAPHY"
+    : category?.toUpperCase();
 
   const books = [
     { id: 1, title: "A Million To One", price: "6.99" },
