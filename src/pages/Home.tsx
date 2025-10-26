@@ -27,11 +27,19 @@ export default function Home() {
               </div>
             </div>
             <div className="grid grid-cols-2 gap-4">
-              <div className="bg-sage/50 aspect-[3/4] rounded-lg flex items-center justify-center">
-                <BookOpen className="w-16 h-16 text-muted-foreground" />
+              <div className="bg-sage/50 aspect-[3/4] rounded-lg overflow-hidden">
+                <img 
+                  src="/images/Book1.webp" 
+                  alt="Featured Book" 
+                  className="w-full h-full object-cover"
+                />
               </div>
-              <div className="bg-sage/70 aspect-[3/4] rounded-lg flex items-center justify-center">
-                <BookOpen className="w-16 h-16 text-muted-foreground" />
+              <div className="bg-sage/70 aspect-[3/4] rounded-lg overflow-hidden">
+                <img 
+                  src="/images/Book2.webp" 
+                  alt="Featured Book" 
+                  className="w-full h-full object-cover"
+                />
               </div>
             </div>
           </div>
@@ -56,8 +64,12 @@ export default function Home() {
         <div className="container mx-auto px-4">
           <div className="grid md:grid-cols-2 gap-12 items-center">
             <div className="grid grid-cols-2 gap-4">
-              <div className="bg-muted aspect-square rounded-lg"></div>
-              <div className="bg-muted aspect-square rounded-lg mt-8"></div>
+              <div className="bg-muted aspect-square rounded-lg overflow-hidden">
+                <img src="/images/photo1.jpg" alt="Bookstore" className="w-full h-full object-cover" />
+              </div>
+              <div className="bg-muted aspect-square rounded-lg mt-8 overflow-hidden">
+                <img src="/images/photo2.jpg" alt="Bookstore" className="w-full h-full object-cover" />
+              </div>
             </div>
             <div>
               <h2 className="text-3xl md:text-4xl font-serif font-bold mb-6">
@@ -83,11 +95,30 @@ export default function Home() {
         <div className="container mx-auto px-4">
           <h2 className="text-3xl font-serif font-bold mb-8">Explore Categories</h2>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
-            {["FICTION", "MYSTERY", "ROMANCE", "HISTORY"].map((category) => (
-              <div key={category} className="bg-sage/30 aspect-video rounded-lg flex items-center justify-center">
-                <span className="font-medium">{category}</span>
+            <Link to="/collection/fiction" className="relative aspect-video rounded-lg overflow-hidden">
+              <img src="/images/Fiction.jpg" alt="Fiction" className="w-full h-full object-cover" />
+              <div className="absolute inset-0 bg-black/40 flex items-center justify-center">
+                <span className="font-medium text-white">FICTION</span>
               </div>
-            ))}
+            </Link>
+            <Link to="/collection/mystery" className="relative aspect-video rounded-lg overflow-hidden">
+              <img src="/images/mystry.jpg" alt="Mystery" className="w-full h-full object-cover" />
+              <div className="absolute inset-0 bg-black/40 flex items-center justify-center">
+                <span className="font-medium text-white">MYSTERY</span>
+              </div>
+            </Link>
+            <Link to="/collection/romance" className="relative aspect-video rounded-lg overflow-hidden">
+              <img src="/images/romance.jpg" alt="Romance" className="w-full h-full object-cover" />
+              <div className="absolute inset-0 bg-black/40 flex items-center justify-center">
+                <span className="font-medium text-white">ROMANCE</span>
+              </div>
+            </Link>
+            <Link to="/collection/self-help" className="relative aspect-video rounded-lg overflow-hidden">
+              <img src="/images/Self Help.jpg" alt="Self Help" className="w-full h-full object-cover" />
+              <div className="absolute inset-0 bg-black/40 flex items-center justify-center">
+                <span className="font-medium text-white">SELF HELP</span>
+              </div>
+            </Link>
           </div>
           <div className="text-center">
             <Button variant="outline" className="rounded-full">
@@ -104,13 +135,34 @@ export default function Home() {
             <h2 className="text-3xl font-serif font-bold">Popular Books</h2>
           </div>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-8">
-            {[1, 2, 3, 4].map((i) => (
-              <div key={i}>
-                <div className="bg-muted aspect-[2/3] rounded-lg mb-3"></div>
-                <h3 className="font-medium mb-1">Book Title {i}</h3>
-                <p className="text-sm text-muted-foreground">$ 6.99 USD</p>
+            <div>
+              <div className="aspect-[2/3] rounded-lg mb-3 overflow-hidden">
+                <img src="/images/Book1.webp" alt="Book 1" className="w-full h-full object-cover" />
               </div>
-            ))}
+              <h3 className="font-medium mb-1">Featured Book 1</h3>
+              <p className="text-sm text-muted-foreground">$ 6.99 USD</p>
+            </div>
+            <div>
+              <div className="aspect-[2/3] rounded-lg mb-3 overflow-hidden">
+                <img src="/images/Book2.webp" alt="Book 2" className="w-full h-full object-cover" />
+              </div>
+              <h3 className="font-medium mb-1">Featured Book 2</h3>
+              <p className="text-sm text-muted-foreground">$ 7.99 USD</p>
+            </div>
+            <div>
+              <div className="aspect-[2/3] rounded-lg mb-3 overflow-hidden">
+                <img src="/images/The Garden Of Words.jpg" alt="The Garden Of Words" className="w-full h-full object-cover" />
+              </div>
+              <h3 className="font-medium mb-1">The Garden Of Words</h3>
+              <p className="text-sm text-muted-foreground">$ 5.99 USD</p>
+            </div>
+            <div>
+              <div className="aspect-[2/3] rounded-lg mb-3 overflow-hidden">
+                <img src="/images/The Dragon Princess.jpg" alt="The Dragon Princess" className="w-full h-full object-cover" />
+              </div>
+              <h3 className="font-medium mb-1">The Dragon Princess</h3>
+              <p className="text-sm text-muted-foreground">$ 8.99 USD</p>
+            </div>
           </div>
           <div className="text-center">
             <Button variant="outline" className="rounded-full" asChild>
@@ -135,13 +187,34 @@ export default function Home() {
             </div>
           </div>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-8">
-            {[1, 2, 3, 4].map((i) => (
-              <div key={i}>
-                <div className="bg-muted aspect-[2/3] rounded-lg mb-3"></div>
-                <h3 className="font-medium mb-1">Book Title {i}</h3>
-                <p className="text-sm text-muted-foreground">$ 6.99 USD</p>
+            <div>
+              <div className="aspect-[2/3] rounded-lg mb-3 overflow-hidden">
+                <img src="/images/Fiction.jpg" alt="Fiction Book" className="w-full h-full object-cover" />
               </div>
-            ))}
+              <h3 className="font-medium mb-1">Fiction Bestseller</h3>
+              <p className="text-sm text-muted-foreground">$ 9.99 USD</p>
+            </div>
+            <div>
+              <div className="aspect-[2/3] rounded-lg mb-3 overflow-hidden">
+                <img src="/images/mystry.jpg" alt="Mystery Book" className="w-full h-full object-cover" />
+              </div>
+              <h3 className="font-medium mb-1">Mystery Thriller</h3>
+              <p className="text-sm text-muted-foreground">$ 8.99 USD</p>
+            </div>
+            <div>
+              <div className="aspect-[2/3] rounded-lg mb-3 overflow-hidden">
+                <img src="/images/romance.jpg" alt="Romance Book" className="w-full h-full object-cover" />
+              </div>
+              <h3 className="font-medium mb-1">Romance Novel</h3>
+              <p className="text-sm text-muted-foreground">$ 7.99 USD</p>
+            </div>
+            <div>
+              <div className="aspect-[2/3] rounded-lg mb-3 overflow-hidden">
+                <img src="/images/Self Help.jpg" alt="Self Help Book" className="w-full h-full object-cover" />
+              </div>
+              <h3 className="font-medium mb-1">Self Help Guide</h3>
+              <p className="text-sm text-muted-foreground">$ 10.99 USD</p>
+            </div>
           </div>
           <div className="text-center">
             <Button variant="outline" className="rounded-full">

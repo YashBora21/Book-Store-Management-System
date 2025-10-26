@@ -1,19 +1,26 @@
 import { useState } from "react";
-import { useParams, Link } from "react-router-dom";
+import { useParams, Link, useNavigate } from "react-router-dom";
 import { Navigation } from "@/components/Navigation";
 import { Footer } from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft, ShoppingCart, Check } from "lucide-react";
+import { useCart } from "@/context/CartContext";
+import { useToast } from "@/hooks/use-toast";
 
 export default function BookDetail() {
   const { id } = useParams();
+  const navigate = useNavigate();
+  const { addToCart } = useCart();
+  const { toast } = useToast();
   const [quantity, setQuantity] = useState(1);
   const [showPaymentDialog, setShowPaymentDialog] = useState(false);
   const [paymentMethod, setPaymentMethod] = useState<"upi" | "qr" | null>(null);
+  const [addedToCart, setAddedToCart] = useState(false);
 
   const book = {
+    _id: id || "1", // Use the ID from params or default to "1"
     title: "A Million To One",
     author: "Tony Faggioli",
     price: 6.99,
@@ -28,6 +35,37 @@ Meanwhile, the dedicated Gray Man, an agent of heaven, faces shock and defiance 
   };
 
   const handleAddToCart = () => {
+    addToCart({
+      _id: book._id,
+      title: book.title,
+      author: book.author,
+      price: book.price,
+      quantity: quantity
+    });
+    
+    setAddedToCart(true);
+    
+    toast({
+      title: "Added to cart",
+      description: `${book.title} has been added to your cart`,
+    });
+    
+    // Reset added to cart status after 2 seconds
+    setTimeout(() => {
+      setAddedToCart(false);
+    }, 2000);
+  };
+
+  const handleBuyNow = () => {
+    // Add to cart and go to payment dialog
+    addToCart({
+      _id: book._id,
+      title: book.title,
+      author: book.author,
+      price: book.price,
+      quantity: quantity
+    });
+    
     setShowPaymentDialog(true);
   };
 
@@ -43,7 +81,25 @@ Meanwhile, the dedicated Gray Man, an agent of heaven, faces shock and defiance 
         <div className="container mx-auto px-4">
           <div className="grid md:grid-cols-2 gap-12 mb-12">
             <div>
-              <div className="bg-muted aspect-[2/3] max-w-md rounded-lg"></div>
+              <div className="bg-muted aspect-[2/3] max-w-md rounded-lg overflow-hidden">
+                <img 
+                  src={`/images/${book.title.replace(/ /g, '')}.jpg`} 
+                  alt={book.title}
+                  className="w-full h-full object-cover"
+                  onError={(e) => {
+                    // Fallback to one of the available images from the images folder
+                    const fallbackImages = [
+                      "/images/Book1.webp",
+                      "/images/Book2.webp",
+                      "/images/The Goldfinch.jpeg",
+                      "/images/A Million To One.jpg"
+                    ];
+                    e.currentTarget.src = fallbackImages[Math.floor(Math.random() * fallbackImages.length)];
+                  }}
+                  alt={book.title}
+                  className="object-contain w-full h-full rounded-md shadow-md"
+                />
+              </div>
             </div>
             
             <div>
@@ -70,8 +126,23 @@ Meanwhile, the dedicated Gray Man, an agent of heaven, faces shock and defiance 
                 <Button 
                   className="bg-foreground text-background hover:bg-foreground/90 rounded-full px-8"
                   onClick={handleAddToCart}
+                  disabled={addedToCart}
                 >
-                  Add To Cart
+                  {addedToCart ? (
+                    <>
+                      <Check className="mr-2 h-4 w-4" />
+                      Added
+                    </>
+                  ) : (
+                    "Add To Cart"
+                  )}
+                </Button>
+                <Button 
+                  variant="outline"
+                  className="rounded-full px-8"
+                  onClick={handleBuyNow}
+                >
+                  Buy Now
                 </Button>
               </div>
               
@@ -120,13 +191,19 @@ Meanwhile, the dedicated Gray Man, an agent of heaven, faces shock and defiance 
               </DialogHeader>
               <div className="space-y-4">
                 <Button
-                  className="w-full bg-sage hover:bg-sage-dark text-foreground rounded-full py-6 text-lg"
-                  onClick={() => handlePaymentMethodClick("upi")}
+                  className="w-full bg-foreground text-background hover:bg-foreground/90 rounded-full py-6 text-lg"
+                  onClick={() => navigate("/checkout")}
                 >
-                  UPI
+                  PROCEED TO CHECKOUT
                 </Button>
                 <Button
-                  className="w-full bg-sage hover:bg-sage-dark text-foreground rounded-full py-6 text-lg"
+                  className="w-full bg-foreground/10 hover:bg-foreground/20 text-foreground rounded-full py-6 text-lg"
+                  onClick={() => handlePaymentMethodClick("upi")}
+                >
+                  PAY WITH UPI
+                </Button>
+                <Button
+                  className="w-full bg-foreground/10 hover:bg-foreground/20 text-foreground rounded-full py-6 text-lg"
                   onClick={() => handlePaymentMethodClick("qr")}
                 >
                   SCAN & PAY
@@ -151,10 +228,22 @@ Meanwhile, the dedicated Gray Man, an agent of heaven, faces shock and defiance 
               <div className="space-y-6">
                 <Input
                   placeholder="Enter UPI ID"
-                  className="rounded-full bg-sage/20 border-sage"
+                  className="rounded-full bg-foreground/10 border-foreground/20"
                 />
-                <Button className="w-full bg-sage hover:bg-sage-dark text-foreground rounded-full py-6 text-lg">
-                  Continue
+                <Button 
+                  className="w-full bg-foreground text-background hover:bg-foreground/90 rounded-full py-6 text-lg"
+                  onClick={() => {
+                    toast({
+                      title: "Payment successful",
+                      description: "Your order has been placed successfully",
+                    });
+                    setShowPaymentDialog(false);
+                    setTimeout(() => {
+                      navigate("/");
+                    }, 1500);
+                  }}
+                >
+                  Complete Payment
                 </Button>
               </div>
               <Button
@@ -176,6 +265,21 @@ Meanwhile, the dedicated Gray Man, an agent of heaven, faces shock and defiance 
               <div className="flex justify-center py-8">
                 <div className="w-64 h-64 bg-foreground rounded-lg"></div>
               </div>
+              <Button
+                className="w-full bg-foreground text-background hover:bg-foreground/90 rounded-full mt-4"
+                onClick={() => {
+                  toast({
+                    title: "Payment successful",
+                    description: "Your order has been placed successfully",
+                  });
+                  setShowPaymentDialog(false);
+                  setTimeout(() => {
+                    navigate("/");
+                  }, 1500);
+                }}
+              >
+                Payment Complete
+              </Button>
               <Button
                 variant="outline"
                 className="mt-4 rounded-full"

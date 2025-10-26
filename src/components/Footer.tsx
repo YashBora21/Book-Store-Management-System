@@ -8,7 +8,7 @@ export const Footer = () => {
       <div className="container mx-auto px-4 py-12">
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-8">
           <div>
-            <h2 className="text-3xl font-serif font-bold mb-2">LOGO</h2>
+            <img src="/images/Logo.png" alt="Logo" className="h-10 w-auto mb-2 bg-white p-1 rounded" />
             <p className="text-xl font-serif max-w-md">
               Start Your Empowering<br />Reading Adventure
             </p>

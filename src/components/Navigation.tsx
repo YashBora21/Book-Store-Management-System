@@ -14,8 +14,8 @@ export const Navigation = () => {
     <nav className="border-b bg-background sticky top-0 z-50">
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-16">
-          <Link to="/" className="text-2xl font-bold font-serif">
-            Logo
+          <Link to="/" className="flex items-center">
+            <img src="/images/Logo.png" alt="Logo" className="h-8 w-auto" />
           </Link>
 
           <div className="hidden md:flex items-center space-x-8">

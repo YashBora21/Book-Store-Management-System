@@ -49,7 +49,28 @@ export default function Collection() {
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-12">
             {books.map((book) => (
               <Link key={book.id} to={`/book/${book.id}`} className="group">
-                <div className="bg-muted aspect-[2/3] rounded-lg mb-3 group-hover:shadow-lg transition-shadow"></div>
+                <div className="bg-muted aspect-[2/3] rounded-lg mb-3 group-hover:shadow-lg transition-shadow overflow-hidden">
+                  <img 
+                    src={`/images/${book.title.replace(/\s+/g, ' ')}.jpg`} 
+                    onError={(e) => {
+                      // Fallback to one of the available images
+                      const fallbackImages = [
+                        "/images/A Million To One.jpg",
+                        "/images/The Goldfinch.jpeg",
+                        "/images/13Days.jpeg",
+                        "/images/ApothecaryDiaries.jpg",
+                        "/images/The Garden Of Words.jpg",
+                        "/images/The Dragon Princess.jpg",
+                        "/images/When The Doves Disappeared.jpg",
+                        "/images/Tales Under The Purple Sky.jpg",
+                        "/images/The Dance of Destiny.jpg"
+                      ];
+                      e.currentTarget.src = fallbackImages[Math.floor(Math.random() * fallbackImages.length)];
+                    }}
+                    alt={book.title}
+                    className="w-full h-full object-cover transition-transform group-hover:scale-105"
+                  />
+                </div>
                 <h3 className="font-medium mb-1">{book.title}</h3>
                 <p className="text-sm text-muted-foreground">$ {book.price} USD</p>
               </Link>

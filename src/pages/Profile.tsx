@@ -15,7 +15,9 @@ export default function Profile() {
       <section className="py-16">
         <div className="container mx-auto px-4 max-w-4xl">
           <div className="text-center mb-12">
-            <div className="w-32 h-32 mx-auto mb-6 rounded-full bg-muted"></div>
+            <div className="w-32 h-32 mx-auto mb-6 rounded-full overflow-hidden">
+              <img src="/images/profile.jpeg" alt="Profile" className="w-full h-full object-cover" />
+            </div>
             <h1 className="text-3xl font-serif font-bold mb-8">Sophie Martin</h1>
             
             <div className="bg-sage/20 rounded-lg p-6 mb-6">

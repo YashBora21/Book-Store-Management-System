@@ -42,7 +42,23 @@ export default function Shop() {
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-12">
             {books.map((book) => (
               <Link key={book.id} to={`/book/${book.id}`} className="group">
-                <div className="bg-muted aspect-[2/3] rounded-lg mb-3 group-hover:shadow-lg transition-shadow"></div>
+                <div className="aspect-[2/3] rounded-lg mb-3 group-hover:shadow-lg transition-shadow overflow-hidden">
+                  <img 
+                    src={`/images/${book.title.replace(/ /g, '')}.jpg`} 
+                    alt={book.title}
+                    className="w-full h-full object-cover"
+                    onError={(e) => {
+                      const target = e.target as HTMLImageElement;
+                      const fallbackImages = [
+                        "/images/Book1.webp",
+                        "/images/Book2.webp",
+                        "/images/The Goldfinch.jpeg",
+                        "/images/A Million To One.jpg"
+                      ];
+                      target.src = fallbackImages[Math.floor(Math.random() * fallbackImages.length)];
+                    }}
+                  />
+                </div>
                 <h3 className="font-medium mb-1">{book.title}</h3>
                 <p className="text-sm text-muted-foreground">$ {book.price} USD</p>
               </Link>
